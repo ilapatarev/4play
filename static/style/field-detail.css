@@ -4,6 +4,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 .art {
     overflow: hidden;
@@ -15,6 +16,7 @@
     margin: 16px;
     font-family: 'Mochiy Pop One', sans-serif;
     font-size: 16px;
+    margin-bottom: 100px;
 
 }
 .field-pic {
@@ -47,5 +49,26 @@
 h3 {
     margin: 10px;
     font-family: 'Raleway', sans-serif;
-    font-weight: 500px;
+
+}
+.fd-title {
+    font-size: 32px;
+}
+.fd-rating {
+
+}
+.fdtr {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.com {
+    background-color: lightgrey;
+    border-radius: 8px;
+}
+
+.created {
+    font-size: 12px;
+    text-align: right;
 }

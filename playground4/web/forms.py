@@ -1,7 +1,7 @@
 
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import User, Field, Reservation
+from .models import User, Field, Reservation, Review
 
 
 class RegistrationForm(UserCreationForm):
@@ -38,3 +38,8 @@ class ReservationForm(forms.ModelForm):
         widgets = {
             'reservation_date': forms.DateInput(attrs={'type': 'date'}),
         }
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ['rating', 'comment']

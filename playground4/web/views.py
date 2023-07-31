@@ -2,9 +2,11 @@ from django import forms
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login, authenticate, logout
+from django.http import HttpResponseRedirect
+from django.views import View
 from django.views.generic import DetailView
-from .forms import LoginForm, RegistrationForm, ReservationForm
-from .models import User, Field, Reservation
+from .forms import LoginForm, RegistrationForm, ReservationForm, ReviewForm
+from .models import User, Field, Reservation, Review
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -116,11 +118,57 @@ class FieldDeleteView(LoginRequiredMixin, DeleteView):
     def get_queryset(self):
         return Field.objects.filter(field_owner=self.request.user)
 
-class FieldDetailView(DetailView):
-    model = Field
+class FieldDetailView(View):
     template_name = 'field/field_detail.html'
-    context_object_name = 'field'
+    login_url = 'login'
 
+    def get(self, request, pk):
+        field = get_object_or_404(Field, pk=pk)
+
+        # Check if the user is authenticated
+        is_authenticated = request.user.is_authenticated
+
+        # Check if the user has already reviewed the field
+        has_reviewed = False
+        review_form = ReviewForm()
+
+        if is_authenticated:
+            has_reviewed = Review.objects.filter(user=request.user, field=field).exists()
+        else:
+            # If the user is anonymous, hide the review form
+            review_form = None
+
+        context = {
+            'field': field,
+            'review_form': review_form,
+            'has_reviewed': has_reviewed,
+            'is_authenticated': is_authenticated,
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request, pk):
+        field = get_object_or_404(Field, pk=pk)
+
+        # Check if the user is authenticated
+        is_authenticated = request.user.is_authenticated
+
+        # If the user is anonymous, do not process the review form submission
+        if not is_authenticated:
+            messages.error(request, "You need to log in to add a review.")
+            return HttpResponseRedirect(reverse_lazy('field_detail', kwargs={'pk': pk}))
+
+        review_form = ReviewForm(request.POST)
+
+        if review_form.is_valid():
+            review = review_form.save(commit=False)
+            review.user = request.user
+            review.field = field
+            review.save()
+            messages.success(request, "Review successfully added.")
+        else:
+            messages.error(request, "Failed to add the review. Please try again.")
+
+        return HttpResponseRedirect(reverse_lazy('field_detail', kwargs={'pk': pk}))
 
 class ReservationCreateView(CreateView):
     model = Reservation
@@ -205,4 +253,54 @@ class FieldScheduleView(LoginRequiredMixin, ListView):
         field_id = self.kwargs['field_id']
         return Reservation.objects.filter(field_id=field_id)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        field_id = self.kwargs['field_id']
+        field = get_object_or_404(Field, pk=field_id)
+        context['field'] = field
+        return context
+
+class ReservationCancelView(View):
+    def post(self, request, pk):
+        # Get the reservation object
+        reservation = Reservation.objects.get(pk=pk)
+
+        # Check if the reservation belongs to the current user
+        if reservation.user == request.user:
+            # Delete the reservation
+            reservation.delete()
+
+            # Display a success message
+            messages.success(request, "Reservation successfully canceled.")
+        else:
+            # Display an error message if the reservation doesn't belong to the user
+            messages.error(request, "You are not authorized to cancel this reservation.")
+
+        # Redirect to the schedule page
+        return redirect('schedule')
+
+class AddReviewView(LoginRequiredMixin, CreateView):
+    model = Review
+    template_name = 'review/add_review.html'
+    form_class = ReviewForm
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        field = get_object_or_404(Field, pk=self.kwargs['pk'])
+        form.instance.field = field
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        messages.success(self.request, "Review successfully added.")
+        return reverse_lazy('field_detail', kwargs={'pk': self.kwargs['pk']})
+
+
+class ReviewListView(View):
+    template_name = 'review/reviews.html'
+
+    def get(self, request, pk):
+        field = get_object_or_404(Field, pk=pk)
+        reviews = Review.objects.filter(field=field)
+
+        return render(request, self.template_name, {'field': field, 'reviews': reviews})
 

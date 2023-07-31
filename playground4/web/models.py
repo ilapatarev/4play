@@ -1,7 +1,10 @@
 
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.conf import settings
+from django.db.models import Avg
+
 
 class User(AbstractUser):
     username = models.CharField(max_length=150, unique=True, verbose_name='username')
@@ -65,6 +68,12 @@ class Field(models.Model):
     def get_end_working_hour(self):
         return f"{self.end_working_hour}:00"
 
+    def get_average_rating(self):
+        average_rating = self.review_set.aggregate(Avg('rating'))['rating__avg']
+        if average_rating:
+            return round(average_rating, 1)
+        return None
+
     def __str__(self):
         return self.name
 
@@ -78,3 +87,14 @@ class Reservation(models.Model):
         return f"Reservation for {self.field.name} by {self.user.username}"
 
 
+class Review(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    field = models.ForeignKey(Field, on_delete=models.CASCADE)
+    rating = models.IntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(5)]
+    )
+    comment = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Review for {self.field.name} by {self.user.username}"

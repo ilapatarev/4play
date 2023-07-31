@@ -9,6 +9,7 @@
             <p>Hour: {{ reservation.reservation_hour }}:00</p>
             <p>Thank you for your reservation!</p>
             <p><a class="take-back" href="{% url 'field_list' %}">Take me back to the fields</a></p>
+            <p><a class="take-back" href="{% url 'schedule' %}">Show me my schedule</a></p>
         </article>
     </main>
 {% endblock %}

@@ -3,23 +3,72 @@
 {% block content %}
     <main class="main-fd">
         <article class="art">
-            <h2>{{ field.name }}</h2>
-            <img class="field-pic" src="{{ field.image_url }}" alt="img">
-            <p><strong>Location:</strong> {{ field.location }}</p>
-            <p><strong>Sport:</strong> {{ field.sport }}</p>
-            <p><strong>Description:</strong> {{ field.description }}</p>
-            <p><strong>Working Time:</strong></p>
-            <p><span><strong>From:</strong> {{ field.get_start_working_day }} - {{ field.get_start_working_hour }}</span>
-            <span><strong>To:</strong> {{ field.get_end_working_day }} - {{ field.get_end_working_hour }}</span></p>
-            <p><strong>Price per hour: </strong>{{ field.price_per_hour }} $</p>
-            {% if user.is_authenticated %}
-                <p><strong>Field Owner: </strong>{{ field.field_owner.company_name }}</p>
-                 <button class="field-btn"><a href="{% url 'reservation_form' pk=field.pk %}" class="field-btn">Reserve this field</a></button>
-            {% else %}
-                <p>Please login to reserve. <button class="field-btn"><a class="field-btn" href="{% url 'login' %}?next={{ request.path }}">Login here.</a></button></p>
-            {% endif %}
+            <p class="fdtr">
+                <span class="fd-title"><strong>{{ field.name }}</strong></span>
+                {% if field.get_average_rating %}
+                    <span class="fd-rating">Rating {{ field.get_average_rating }} / 5</span>
+                {% else %}
+                    <span class="fd-rating">No reviews yet.</span>
+                {% endif %}
+                </p>
+                <img class="field-pic" src="{{ field.image_url }}" alt="img">
+                <p><strong>Location:</strong> {{ field.location }}</p>
+                <p><strong>Sport:</strong> {{ field.sport }}</p>
+                <p><strong>Description:</strong> {{ field.description }}</p>
+                <p><strong>Working Time:</strong></p>
+                <p><span><strong>From:</strong> {{ field.get_start_working_day }} - {{ field.get_start_working_hour }}</span>
+                <span><strong>To:</strong> {{ field.get_end_working_day }} - {{ field.get_end_working_hour }}</span></p>
+                <p><strong>Price per hour: </strong>{{ field.price_per_hour }} $</p>
+                  {% if user.is_authenticated %}
+                            <p><strong>Field Owner: </strong>{{ field.field_owner.company_name }}</p>
+                            <button class="field-btn"><a href="{% url 'reservation_form' pk=field.pk %}" class="field-btn">Reserve this field</a></button>
+                            {% if not has_reviewed %}
+                                <button id="leave-review-btn" class="field-btn">Leave Review</button>
+                            {% else %}
+                                <p>You have already left a review for this field.</p>
+                            {% endif %}
+                  {% else %}
+                      <p>Please login to reserve.</p>
+                      <button class="field-btn"><a class="field-btn" href="{% url 'login' %}?next={{ request.path }}">Login here.</a></button>
+
+                  {% endif %}
+                    <p><a href="{% url 'reviews' pk=field.pk %}">View Reviews</a></p>
+
+                    <div id="review-form-wrapper" style="display: none;">
+                        <form id="review-form" method="post" action="{% url 'add_review' pk=field.pk %}">
+                            {% csrf_token %}
+                            {{ review_form.as_p }}
+                            <button class="field-btn" type="submit">Submit Review</button>
+                        </form>
+                    </div>
+
+                        <!-- Display existing reviews if any -->
+{#                    {% if field.review_set.exists %}#}
+{#                        <section>#}
+{#                            <h3>Reviews</h3>#}
+{#                            <ul>#}
+{#                                {% for review in field.review_set.all %}#}
+{#                                    <li>{{ review.user.username }} - {{ review.created_at|date:"F d, Y" }} - {{ review.comment }} - {{ review.rating }}</li>#}
+{#                                {% endfor %}#}
+{#                            </ul>#}
+{#                        </section>#}
+{##}
+{#                    {% else %}#}
+{#                        <p>No reviews yet.</p>#}
+{#                    {% endif %}#}
         </article>
     </main>
-{% endblock %}
 
-{#{% url 'reservation_form' field.pk %}#}
+        <!-- Add the following script at the bottom of your template -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const leaveReviewBtn = document.getElementById("leave-review-btn");
+                const reviewFormWrapper = document.getElementById("review-form-wrapper");
+
+                leaveReviewBtn.addEventListener("click", function () {
+                    reviewFormWrapper.style.display = "block";
+                    leaveReviewBtn.style.display = "none";
+                });
+            });
+        </script>
+{% endblock %}

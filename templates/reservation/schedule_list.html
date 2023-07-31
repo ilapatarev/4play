@@ -3,11 +3,26 @@
 {% block content %}
     <main class="main-reservation">
         <article class="res-art">
+             {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
               <h1>My Reservations</h1>
               {% if reservations %}
                 <ol>
                   {% for reservation in reservations %}
-                    <li class="res-li"> At {{ reservation.reservation_hour }}:00 {{ reservation.reservation_date }} - {{ reservation.field.name }} - {{ reservation.field.location }} </li>
+                    <li class="res-li"> At {{ reservation.reservation_hour }}:00 {{ reservation.reservation_date }} - {{ reservation.field.name }} - {{ reservation.field.location }} - $ {{ reservation.field.price_per_hour }}
+                        {% if reservation.user == request.user %}
+                            <form method="post" action="{% url 'reservation_cancel' reservation.pk %}">
+                                {% csrf_token %}
+                                <button class="field-btn" type="submit">Cancel Reservation</button>
+                            </form>
+                        {% endif %}
+
+                    </li>
                       <hr>
                   {% endfor %}
                 </ol>
