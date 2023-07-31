@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+    <main>
+       <div class="first-page">
+        <p>
+            Playground is platform for searching and sharing sports fields in Plovdiv. </p>
+            
+            <article class="info">
+                
+                <p>If you or your team want to play some of the following sports - You can save the date and time:</p>
+                <div class="balls">
+                    <span><a class="ball-link" href=""><img class="ball" src="../static/images/football-g362d384d8_1280.png" alt=""> Football</a></span>
+                    <span><a class="ball-link" href=""><img class="ball" src="../static/images/basketball-g8a8be924e_1280.png" alt=""> Basketball</a></span>
+                    <span><a class="ball-link" href=""><img class="ball" src="../static/images/volleyball-g55ef69036_1280.png" alt=""> Volleyball</a></span>
+                    <span><a class="ball-link" href=""><img class="ball" src="../static/images/tennis-gd134014e1_1280.png" alt=""> Tennis</a></span>
+                    
+                </div>
+                {% if user.is_authenticated %}
+                    <p></p>
+                {% else %}
+                    <p>If you offer a playground - Please follow the <span><a class="offerer-link" href="{% url 'register' %}">link!</a></span></p>
+                {% endif %}
+                <div class="images">
+                <img class="info-pic" src="https://www.turfandrec.com/wp-content/uploads/2022/02/Overhead.jpg" alt="#">
+                <img class="info-pic" src="https://www.musco.com/wp-content/uploads/2020/12/wall_1200x600-1024x512.jpg" alt="#">
+                </div>
+
+             
+
+
+            </article>
+       </div>
+        
+        
+        
+    </main>
+    
+{% endblock %}

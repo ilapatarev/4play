@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+<main class="main-profile">
+    <article class="profile">
+
+        {% if user.field_owner %}
+            <!-- Field Owner Profile Content -->
+            <h2 class="profile-username">{{ profile.username }}</h2>
+            {% if profile.image_url %}
+                <img class="profile-pic" src="{{ profile.image_url }}" alt="">
+            {% else %}
+                <img class="profile-pic" src="/static/images/avatar-g2b3603958_1280.png" alt="profile img"/>
+            {% endif %}
+            <p class="profile-info">First Name: {{ profile.first_name }}</p>
+            <p class="profile-info">Last Name: {{ profile.last_name }}</p>
+            <p class="profile-info">Company Name: {{ profile.company_name }}</p>
+            <p class="profile-info">Age: {{ profile.age }}</p>
+
+
+            <!-- Add other field owner profile details here -->
+        {% else %}
+            <!-- Client Profile Content -->
+            <h2 class="profile-username">{{ profile.username }}</h2>
+            {% if profile.image_url %}
+                <img class="profile-pic" src="{{ profile.image_url }}" alt="">
+            {% else %}
+                <img class="profile-pic" src="/static/images/avatar-g2b3603958_1280.png" alt="profile img"/>
+            {% endif %}
+            <p class="profile-info"><strong>First Name:</strong> {{ profile.first_name }}</p>
+            <p class="profile-info"><strong>Last Name:</strong> {{ profile.last_name }}</p>
+            <p class="profile-info"><strong>Age:</strong> {{ profile.age }}</p>
+            <p class="profile-info"><strong>Preferred Sport:</strong> {{ profile.preferred_sport }}</p>
+
+            <!-- Add other client profile details here -->
+        {% endif %}
+        <!-- Link to edit profile -->
+        <button class="profile-button"><a class="profile-a" href="{% url 'profile_edit' profile.pk %}">Edit Profile</a></button>
+
+        <!-- Link to delete profile -->
+        <button class="profile-button"><a class="profile-a" href="{% url 'profile_delete' profile.pk %}">Delete Profile</a></button>
+    </article>
+</main>
+{% endblock %}

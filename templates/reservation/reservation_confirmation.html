@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main class="main-reservation">
+        <article class="res-art">
+            <h1>Reservation Successful</h1>
+            <p>You have successfully reserved the field {{ field.name }}.</p>
+            <p>Date: {{ reservation.reservation_date }}</p>
+            <p>Hour: {{ reservation.reservation_hour }}:00</p>
+            <p>Thank you for your reservation!</p>
+            <p><a class="take-back" href="{% url 'field_list' %}">Take me back to the fields</a></p>
+        </article>
+    </main>
+{% endblock %}

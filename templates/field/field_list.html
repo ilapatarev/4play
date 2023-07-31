@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+    <main class="main">
+        <div class="main-content">
+
+        {% for field in fields %}
+
+            <article class="pop">
+                <img class="ground-pic" src="{{ field.image_url }}" alt="image">
+                <h2>{{ field.name }}</h2>
+                <p class="info-text">Location: {{ field.location }}</p>
+                <p class="info-text">Sport: {{ field.sport }}</p>
+                <button class="myf-btn"><a class="detail" href="{% url 'field_detail' field.pk %}">Details</a></button>
+            </article>
+        {% endfor %}
+    </div>
+    </main>
+{% endblock %}

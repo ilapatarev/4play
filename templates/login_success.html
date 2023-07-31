@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+    <main class="main-rs">
+        <div class="reg-s">
+            <h2>Registration Successful</h2>
+            <p>Thank you for registering. You can now login.</p>
+            <button class="log-btn"><a  class="log-btn" href="{% url 'login' %}">Login here</a></button>
+        </div>
+    </main>
+{% endblock %}

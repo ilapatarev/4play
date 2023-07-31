@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main class="log-form">
+    <article class="log">
+        <form method="post" action="{% url 'login' %} ">
+            {% csrf_token %}
+            <div>
+                <h2>Login</h2>
+
+                <p>If you don`t have registration? <a href="{% url 'register' %}">Register here</a></p>
+                <label for="id_username">Username:</label>
+                <input type="text" id="id_username" name="username" required>
+            </div>
+            <div>
+                <label for="id_password">Password:</label>
+                <input type="password" id="id_password" name="password" required>
+            </div>
+            <p><button class="log-button" type="submit">Login</button></p>
+            {% if messages %}
+                 <ul class="messages">
+                    {% for message in messages %}
+                         <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                 </ul>
+            {% endif %}
+        </form>
+
+    </article>
+
+
+</main>
+
+
+{% endblock %}
+{#{% extends 'base.html' %}#}
+{##}
+{#{% block content %}#}
+{#    <main class="log-form">#}
+{#        <article class="log">#}
+{#            <form method="post" action="{% url 'login' %}">#}
+{#                {% csrf_token %}#}
+{#                <div>#}
+{#                    <h2>Login</h2>#}
+{#                    {% if messages %}#}
+{#                        <ul class="messages">#}
+{#                            {% for message in messages %}#}
+{#                                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>#}
+{#                            {% endfor %}#}
+{#                        </ul>#}
+{#                    {% endif %}#}
+{#                    <p>If you don't have registration? <a href="{% url 'register' %}">Register here</a></p>#}
+{#                    <label for="id_username">Username:</label>#}
+{#                    <input type="text" id="id_username" name="username" required>#}
+{#                </div>#}
+{#                <div>#}
+{#                    <label for="id_password">Password:</label>#}
+{#                    <input type="password" id="id_password" name="password" required>#}
+{#                </div>#}
+{#                <input type="hidden" name="next" value="{{ request.path }}">#}
+{#                <p><button class="log-button" type="submit">Login</button></p>#}
+{#            </form>#}
+{#        </article>#}
+{#    </main>#}
+{#{% endblock %}#}

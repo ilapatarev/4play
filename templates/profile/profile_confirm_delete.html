@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    <main class="main-ep">
+        <article class="pr-del">
+            <h2>Confirm Deletion</h2>
+            <p>Are you sure you want to delete your profile?</p>
+            <form method="post">
+                {% csrf_token %}
+                <input id="delete-pr" type="submit" value="Delete">
+            </form>
+        </article>
+    </main>
+{% endblock %}

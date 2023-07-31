@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+80s+Fade&family=Smooch&display=swap');
+.main {
+    padding: 0 0 100px 0;
+}
+.main-content {
+    display: flex;
+    align-items: center;
+    justify-content:left ;
+    flex-wrap: wrap;
+
+    overflow: hidden;
+
+
+}
+.pop {
+    overflow: hidden;
+    width: 300px;
+    height: 400px;
+    background-color: rgb(241, 241, 235);
+    border-radius: 8px;
+    padding: 5px;
+    margin: 16px;
+    font-family: 'Mochiy Pop One', sans-serif;
+    font-size: 16px;
+
+
+
+
+}
+.ground-pic {
+    width: 300px;
+    height: 200px;
+}
+.myf-btn {
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: rgb(32, 44, 218);
+    color: white;
+
+
+}
+.myf-btn:hover {
+
+    font-size: 20px;
+}
+.info-text {
+    display: -webkit-box;
+        -webkit-line-clamp: 4; /* Maximum number of lines to show */
+        -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 4px;
+}
+
+h3 {
+    margin: 10px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500px;
+}
+.detail {
+    text-decoration: none;
+    color: white;
+}
+.sport {
+    font-weight: 700;
+}
+.sport2 {
+    font-size: x-large;
+}
+
+#mf-title {
+    display: block;
+    text-align: center;
+}

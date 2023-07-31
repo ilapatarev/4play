@@ -1,0 +1,118 @@
+@import url("https://use.fontawesome.com/releases/v5.10.2/css/all.css");
+@import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Smooch&display=swap');
+
+html, body { height: 98%; margin: 0}
+
+body > footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+body {
+    background-color: rgba(250, 193, 128, 0.6);
+
+    background-image: url(Daco_5465362.png);
+    background-size: 700px;
+    background-position: 500px 200px ; 
+    background-repeat: no-repeat;
+   
+    font-family: 'Mochiy Pop One', sans-serif;
+    
+
+}
+.heading {
+    background-color: rgba(250, 193, 128, 0.6)
+}
+
+.logo {
+    block-size: 80px;
+    margin-left: 12px;
+    margin-top: 4px;
+}
+
+
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+    height: 80px;
+}
+.nav {
+    float: right;
+    padding: 10px;
+    overflow: hidden;
+    text-decoration: none;
+}
+.name {
+    font-size: 50px;
+    font-weight: 700;
+
+  
+}
+
+
+.links {
+    float: right;
+    list-style-type: none;
+    margin: 0;
+    padding: 10px ;
+    display: flex;
+ 
+}
+
+.nav-li {
+    text-decoration: none;
+    padding: 10px;
+    color: black;
+    font-size: 25px;
+}
+.links a:hover {
+    color: rgb(32, 44, 218);
+    font-size: 28px;
+}
+
+.foot {
+    display: block;
+    color:  black;
+    font-weight: 100px;
+    position: relative;
+    width: 100%;
+    /* Height of the footer*/
+    height: 60px;
+    /*background-color: whitesmoke;*/
+    background-color: rgba(250, 193, 128, 0.6);
+
+}
+
+
+.mark {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 0px 0px 20px;
+    
+}
+.icons {
+    padding: 0px 40px 0px 0px;
+}
+i {
+    display: flex;
+    justify-content: right;
+    color: black;
+    font-size: 25px;
+    
+}
+i:hover {
+    color: rgb(32, 44, 218);
+    font-size: 30px;
+}
+hr {
+    margin: 8px;
+}
+.title {
+    color: black;
+}
+.title:hover {
+    font-size: 52px;
+    color: rgb(32, 44, 218);
+}
+
+

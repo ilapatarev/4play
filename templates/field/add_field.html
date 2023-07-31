@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <main class="main-af">
+        <article class="add-field">
+            <h2>Add Field</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input id="add-btn" type="submit" value="Add Field">
+            </form>
+        </article>
+    </main>
+
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    <main class="main-ef">
+        <article class="up-field">
+        <h2>Update Field</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Update Field">
+            </form>
+        </article>
+    </main>
+{% endblock %}

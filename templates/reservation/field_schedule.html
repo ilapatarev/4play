@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+    <h1>Field Schedule</h1>
+    <p>Reservations for {{ field.name }}:</p>
+    <ul>
+        {% for reservation in reservations %}
+            <li>{{ reservation.reservation_date }} at {{ reservation.reservation_hour }}:00 by {{ reservation.user.username }}</li>
+        {% empty %}
+            <li>No reservations found for this field.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

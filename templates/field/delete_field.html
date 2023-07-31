@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    <main class="main-df">
+        <article class="field">
+            <h2>Delete Field</h2>
+            <p>Are you sure you want to delete "{{ field.name }}"?</p>
+            <form method="post">
+                {% csrf_token %}
+                <input id="del-btn" type="submit" value="Delete">
+            </form>
+        </article>
+    </main>
+{% endblock %}

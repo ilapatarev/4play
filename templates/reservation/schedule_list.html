@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main class="main-reservation">
+        <article class="res-art">
+              <h1>My Reservations</h1>
+              {% if reservations %}
+                <ol>
+                  {% for reservation in reservations %}
+                    <li class="res-li"> At {{ reservation.reservation_hour }}:00 {{ reservation.reservation_date }} - {{ reservation.field.name }} - {{ reservation.field.location }} </li>
+                      <hr>
+                  {% endfor %}
+                </ol>
+              {% else %}
+                <p>No reservations found.</p>
+              {% endif %}
+        </article>
+    </main>
+{% endblock %}
