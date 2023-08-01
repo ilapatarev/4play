@@ -304,3 +304,12 @@ class ReviewListView(View):
 
         return render(request, self.template_name, {'field': field, 'reviews': reviews})
 
+class FieldOwnerReviews(View):
+    template_name = 'review/field_owner_reviews.html'
+
+    def get(self, request, pk):
+        field = get_object_or_404(Field, pk=pk)
+        reviews = Review.objects.filter(field=field)
+
+        return render(request, self.template_name, {'field': field, 'reviews': reviews})
+

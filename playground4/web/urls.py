@@ -2,7 +2,7 @@ from django.urls import path
 
 from playground4.web import views
 from playground4.web.views import FieldCreateView, FieldUpdateView, FieldDeleteView, ScheduleListView, \
-	FieldScheduleView, ReviewListView
+	FieldScheduleView, ReviewListView, FieldOwnerReviews
 
 urlpatterns=[
 	path('register/', views.register, name='register'),
@@ -26,6 +26,7 @@ urlpatterns=[
 	path('reservation/<int:pk>/cancel/', views.ReservationCancelView.as_view(), name='reservation_cancel'),
 	path('field/<int:pk>/add_review/', views.AddReviewView.as_view(), name='add_review'),
 	path('reviews/<int:pk>/', ReviewListView.as_view(), name='reviews'),
+	path('reviews/field/<int:pk>/', FieldOwnerReviews.as_view(), name='field_owner_reviews'),
 ]
 
 # Wert789456

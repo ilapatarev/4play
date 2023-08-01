@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main class="main-fd">
+        <article class="art">
+            <h1>Reviews for {{ field.name }}</h1>
+            <button class="field-btn"><a href="{% url 'my_fields'  %}" class="field-btn">Back to My Fields</a></button>
+            {% if reviews %}
+                <ol>
+                    {% for review in reviews %}
+                        <li>
+                            <p class="com"> {{ review.comment }}</p>
+                            <p class="created">{{ review.user.username }} / {{ review.created_at }} / Rate {{ review.rating }}</p>
+
+                        </li>
+                    {% endfor %}
+                </ol>
+            {% else %}
+                <p>No reviews available for this field.</p>
+            {% endif %}
+        </article>
+</main>
+{% endblock %}

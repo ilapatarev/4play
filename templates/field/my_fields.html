@@ -11,12 +11,14 @@
                 <p class="info-text">Sport: <span class="sport">{{ field.sport }}</span></p>
                 <div>
                     <button class="myf-btn"><a class="detail" href="{% url 'field_schedule' field.pk %}">Field schedule</a></button>
+                    <button class="myf-btn"><a class="detail" href="{% url 'field_owner_reviews' field.pk %}">Field Reviews</a></button>
                 </div>
 
                 <div>
                     <button class="myf-btn"><a class="detail" href="{% url 'update_field' field.pk %}">Update</a></button>
                     <button class="myf-btn" ><a class="detail" href="{% url 'delete_field' field.pk %}">Delete</a></button>
                 </div>
+
             </article>
         {% endfor %}
         </div>
