@@ -1,9 +1,11 @@
-
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.conf import settings
 from django.db.models import Avg
+from django.urls import reverse
+from django.utils.text import slugify
 
 
 class User(AbstractUser):
@@ -98,3 +100,25 @@ class Review(models.Model):
 
     def __str__(self):
         return f"Review for {self.field.name} by {self.user.username}"
+
+
+
+class News(models.Model):
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    date_published = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    field = models.ForeignKey(Field, on_delete=models.CASCADE, blank=True, null=True)
+    image = models.URLField(blank=True, null=True)
+    category = models.CharField(max_length=100)
+    slug = models.SlugField(unique=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('news_detail', kwargs={'slug': self.slug})
+
+    def __str__(self):
+        return self.title

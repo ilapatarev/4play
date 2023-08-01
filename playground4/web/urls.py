@@ -2,7 +2,7 @@ from django.urls import path
 
 from playground4.web import views
 from playground4.web.views import FieldCreateView, FieldUpdateView, FieldDeleteView, ScheduleListView, \
-	FieldScheduleView, ReviewListView, FieldOwnerReviews
+	FieldScheduleView, ReviewListView, FieldOwnerReviews, NewsListView, AddNewsView, AllNewsView
 
 urlpatterns=[
 	path('register/', views.register, name='register'),
@@ -27,6 +27,9 @@ urlpatterns=[
 	path('field/<int:pk>/add_review/', views.AddReviewView.as_view(), name='add_review'),
 	path('reviews/<int:pk>/', ReviewListView.as_view(), name='reviews'),
 	path('reviews/field/<int:pk>/', FieldOwnerReviews.as_view(), name='field_owner_reviews'),
+	path('add_news/<int:pk>/', AddNewsView.as_view(), name='add_news'),
+	path('news_list/<int:pk>/', NewsListView.as_view(), name='news_list'),
+	path('news/', AllNewsView.as_view(), name='all_news_list'),
 ]
 
 # Wert789456

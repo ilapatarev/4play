@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main class="main-fd">
+        <article class="art">
+            <h1>All News</h1>
+
+            {% if news_list %}
+                <ul>
+                    {% for news in news_list %}
+                        <li>
+                             <h2>{{ news.title }}</h2>
+                            <div class="news-container">
+                                <img class="news-pic" src="{{ news.image }}" alt="">
+                                <p class="news-content">{{ news.content }}</p>
+                                <p class="news-pub">{{ news.date_published }}</p>
+
+                            {% if news.field %}
+                                <p>
+                                    <strong>Field:</strong>
+                                    <a href="{% url 'field_detail' news.field.pk %}">{{ news.field.name }}</a>
+                                </p>
+                            {% endif %}
+                             </div>
+
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No news available.</p>
+            {% endif %}
+        </article>
+    </main>
+
+{% endblock %}

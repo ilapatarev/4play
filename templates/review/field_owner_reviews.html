@@ -4,7 +4,7 @@
     <main class="main-fd">
         <article class="art">
             <h1>Reviews for {{ field.name }}</h1>
-            <button class="field-btn"><a href="{% url 'my_fields'  %}" class="field-btn">Back to My Fields</a></button>
+            <button class="field-btn"><a href="{% url 'field_detail' field.pk  %}" class="field-btn">Back to {{ field.name }}</a></button>
             {% if reviews %}
                 <ol>
                     {% for review in reviews %}

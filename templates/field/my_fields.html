@@ -10,8 +10,9 @@
                 <p class="info-text">Location: {{ field.location }}</p>
                 <p class="info-text">Sport: <span class="sport">{{ field.sport }}</span></p>
                 <div>
-                    <button class="myf-btn"><a class="detail" href="{% url 'field_schedule' field.pk %}">Field schedule</a></button>
-                    <button class="myf-btn"><a class="detail" href="{% url 'field_owner_reviews' field.pk %}">Field Reviews</a></button>
+
+                    <button class="myf-btn"><a class="detail" href="{% url 'field_detail' field.pk %}">Field Detail</a></button>
+
                 </div>
 
                 <div>

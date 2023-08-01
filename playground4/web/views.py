@@ -5,8 +5,8 @@ from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponseRedirect
 from django.views import View
 from django.views.generic import DetailView
-from .forms import LoginForm, RegistrationForm, ReservationForm, ReviewForm
-from .models import User, Field, Reservation, Review
+from .forms import LoginForm, RegistrationForm, ReservationForm, ReviewForm, NewsForm
+from .models import User, Field, Reservation, Review, News
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -313,3 +313,42 @@ class FieldOwnerReviews(View):
 
         return render(request, self.template_name, {'field': field, 'reviews': reviews})
 
+
+class NewsListView(View):
+    template_name = 'news/news_list.html'
+
+    def get(self, request, pk):
+        field = Field.objects.get(pk=pk)
+        news_list = News.objects.filter(field=field)
+        return render(request, self.template_name, {'field': field, 'news_list': news_list})
+
+
+class AddNewsView(View):
+    template_name = 'news/add_news.html'
+
+    def get(self, request, pk):
+        field = Field.objects.get(pk=pk)
+        form = NewsForm()
+        return render(request, self.template_name, {'form': form, 'field': field})
+
+    def post(self, request, pk):
+        field = Field.objects.get(pk=pk)
+        form = NewsForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            news = form.save(commit=False)
+            news.author = request.user
+            news.field = field
+            news.save()
+            return redirect('news_list', pk=pk)
+
+        return render(request, self.template_name, {'form': form, 'field': field})
+
+class AllNewsView(ListView):
+    model = News
+    template_name = 'news/all_news_list.html'
+    context_object_name = 'news_list'
+    ordering = ['-date_published']  # Order news by date_published in descending order
+
+    def get_queryset(self):
+        return super().get_queryset().select_related('field', 'author')

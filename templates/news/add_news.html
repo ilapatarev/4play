@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main class="main-af">
+        <article class="add-field">
+              <h1>Add News for {{ field.name }}</h1>
+              <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="field-btn" type="submit">Add News</button>
+              </form>
+            <a  href="{% url 'field_detail' pk=field.pk %}">Back to Field</a>
+        </article>
+    </main>
+{% endblock %}
