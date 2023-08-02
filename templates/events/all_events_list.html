@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main class="main-fd">
+        <article class="art">
+            <h1>All Events</h1>
+
+            {% if events_list %}
+                <ul>
+                    {% for event in events_list %}
+                        <li>
+                            <h2>{{ event.title }}</h2>
+                            <h3>Field: <a id="link-field" href="{% url 'field_detail' event.field.pk %}">{{ event.field.name }}</a></h3>
+
+                            <div class="news-container">
+                                {% if event.image %}
+                                    <img class="news-pic" src="{{ event.image }}" alt="Event Image">
+                                {% endif %}
+                                <p class="news-content">{{ event.content }}</p>
+                                <p>Location: {{ event.field.location }}</p>
+                                <p class="news-pub">{{ event.date_published }}</p>
+
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No events available.</p>
+            {% endif %}
+        </article>
+    </main>
+
+{% endblock %}

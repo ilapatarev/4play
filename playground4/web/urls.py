@@ -2,7 +2,8 @@ from django.urls import path
 
 from playground4.web import views
 from playground4.web.views import FieldCreateView, FieldUpdateView, FieldDeleteView, ScheduleListView, \
-	FieldScheduleView, ReviewListView, FieldOwnerReviews, NewsListView, AddNewsView, AllNewsView
+	FieldScheduleView, ReviewListView, FieldOwnerReviews, \
+	AddEventView, EventsListView, AllEventsListView, FieldDetailView
 
 urlpatterns=[
 	path('register/', views.register, name='register'),
@@ -18,7 +19,7 @@ urlpatterns=[
     path('fields/<int:pk>/delete/', FieldDeleteView.as_view(), name='delete_field'),
 	path('fields/', views.field_list, name='field_list'),
 	path('fields/my/', views.my_fields, name='my_fields'),
-	path('fields/<int:pk>/', views.FieldDetailView.as_view(), name='field_detail'),
+	path('field_detail/<int:pk>/', FieldDetailView.as_view(), name='field_detail'),
 	path('field/<int:pk>/reserve/', views.ReservationCreateView.as_view(), name='reservation_form'),
 	path('reservation/<int:pk>/confirmation/', views.reservation_confirmation, name='reservation_confirmation'),
 	path('schedule/', ScheduleListView.as_view(), name='schedule'),
@@ -27,9 +28,11 @@ urlpatterns=[
 	path('field/<int:pk>/add_review/', views.AddReviewView.as_view(), name='add_review'),
 	path('reviews/<int:pk>/', ReviewListView.as_view(), name='reviews'),
 	path('reviews/field/<int:pk>/', FieldOwnerReviews.as_view(), name='field_owner_reviews'),
-	path('add_news/<int:pk>/', AddNewsView.as_view(), name='add_news'),
-	path('news_list/<int:pk>/', NewsListView.as_view(), name='news_list'),
-	path('news/', AllNewsView.as_view(), name='all_news_list'),
+	path('add_event/<int:pk>/', AddEventView.as_view(), name='add_event'),
+	path('events_list/<int:pk>/', EventsListView.as_view(), name='events_list'),
+	path('all_events/', AllEventsListView.as_view(), name='all_events_list'),
+	path('fields/<str:sport>/', views.FieldListBySportView.as_view(), name='field_list_by_sport'),
 ]
+
 
 # Wert789456

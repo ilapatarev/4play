@@ -27,13 +27,13 @@
 
                     {% if user.is_authenticated %}
                         {% if user.field_owner %}
-                            <li><a href="{% url 'all_news_list' %}" class="nav-li" action="">News</a></li>
+                            <li><a href="{% url 'all_events_list' %}" class="nav-li" action="">Events</a></li>
                             <li><a href="{% url 'add_field' %}" class="nav-li" action="">Add Field</a></li>
                             <li><a href="{% url 'my_fields' %}" class="nav-li" action="">My Fields</a></li>
                             <li><a href="{% url 'profile' %}" class="nav-li" action="">Profile</a></li>
                             <li><a href="{% url 'logout' %}" class="nav-li" action="">Logout</a></li>
                         {% else %}
-                            <li><a href="{% url 'all_news_list' %}" class="nav-li" action="">News</a></li>
+                            <li><a href="{% url 'all_events_list' %}" class="nav-li" action="">Events</a></li>
                             <li><a href="{% url 'schedule' %}" class="nav-li" action="">My schedule</a></li>
                             <li><a href="{% url 'field_list' %}" class="nav-li" action="">Fields</a></li>
                             <li><a href="{% url 'profile' %}" class="nav-li" action="">Profile</a></li>
@@ -42,7 +42,7 @@
 
 
                     {% else %}
-                        <li><a href="{% url 'all_news_list' %}" class="nav-li" action="">News</a></li>
+                        <li><a href="{% url 'all_events_list' %}" class="nav-li" action="">Events</a></li>
                         <li><a href="{% url 'field_list' %}" class="nav-li" action="">Fields</a></li>
                         <li><a href="{% url 'login' %}" class="nav-li" action="">Login</a></li>
                         <li><a href="{% url 'register' %}" class="nav-li" action="">Register</a></li>

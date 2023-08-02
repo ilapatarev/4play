@@ -5,8 +5,8 @@ from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponseRedirect
 from django.views import View
 from django.views.generic import DetailView
-from .forms import LoginForm, RegistrationForm, ReservationForm, ReviewForm, NewsForm
-from .models import User, Field, Reservation, Review, News
+from .forms import LoginForm, RegistrationForm, ReservationForm, ReviewForm, EventForm
+from .models import User, Field, Reservation, Review, Event
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -91,7 +91,7 @@ def my_fields(request):
 class FieldCreateView(LoginRequiredMixin, CreateView):
     model = Field
     template_name = 'field/add_field.html'
-    fields = ['name', 'location', 'sport', 'description', 'image_url', 'start_working_day', 'start_working_hour', 'end_working_day', 'end_working_hour']
+    fields = ['name', 'location', 'sport', 'description', 'image_url', 'start_working_day', 'start_working_hour', 'end_working_day', 'end_working_hour', 'price_per_hour']
     success_url = reverse_lazy('my_fields')
 
     def form_valid(self, form):
@@ -103,7 +103,7 @@ class FieldCreateView(LoginRequiredMixin, CreateView):
 class FieldUpdateView(LoginRequiredMixin, UpdateView):
     model = Field
     template_name = 'field/update_field.html'
-    fields = ['name', 'location', 'sport', 'description', 'image_url', 'start_working_day', 'start_working_hour', 'end_working_day', 'end_working_hour']
+    fields = ['name', 'location', 'sport', 'description', 'image_url', 'start_working_day', 'start_working_hour', 'end_working_day', 'end_working_hour', 'price_per_hour']
     success_url = reverse_lazy('my_fields')
 
     def get_queryset(self):
@@ -143,6 +143,7 @@ class FieldDetailView(View):
             'review_form': review_form,
             'has_reviewed': has_reviewed,
             'is_authenticated': is_authenticated,
+            'field_owner': field.field_owner,
         }
         return render(request, self.template_name, context)
 
@@ -314,41 +315,61 @@ class FieldOwnerReviews(View):
         return render(request, self.template_name, {'field': field, 'reviews': reviews})
 
 
-class NewsListView(View):
-    template_name = 'news/news_list.html'
+class EventsListView(View):
+    template_name = 'events/events_list.html'
 
     def get(self, request, pk):
-        field = Field.objects.get(pk=pk)
-        news_list = News.objects.filter(field=field)
-        return render(request, self.template_name, {'field': field, 'news_list': news_list})
+        field = get_object_or_404(Field, pk=pk)
+        events_list = Event.objects.filter(field=field)
+        return render(request, self.template_name, {'field': field, 'events_list': events_list})
 
 
-class AddNewsView(View):
-    template_name = 'news/add_news.html'
+class AddEventView(View):
+    template_name = 'events/add_event.html'
 
     def get(self, request, pk):
-        field = Field.objects.get(pk=pk)
-        form = NewsForm()
+        field = get_object_or_404(Field, pk=pk)
+        form = EventForm()
         return render(request, self.template_name, {'form': form, 'field': field})
 
     def post(self, request, pk):
-        field = Field.objects.get(pk=pk)
-        form = NewsForm(request.POST, request.FILES)
+        field = get_object_or_404(Field, pk=pk)
+        form = EventForm(request.POST, request.FILES)
 
         if form.is_valid():
-            news = form.save(commit=False)
-            news.author = request.user
-            news.field = field
-            news.save()
-            return redirect('news_list', pk=pk)
+            events = form.save(commit=False)
+            events.author = request.user
+            events.field = field
+            events.save()
+            return redirect('events_list', pk=pk)
 
         return render(request, self.template_name, {'form': form, 'field': field})
 
-class AllNewsView(ListView):
-    model = News
-    template_name = 'news/all_news_list.html'
-    context_object_name = 'news_list'
-    ordering = ['-date_published']  # Order news by date_published in descending order
+class AllEventsListView(ListView):
+    model = Event
+    template_name = 'events/all_events_list.html'
+    context_object_name = 'events_list'
+    ordering = ['-date_published']  # Order events by date_published in descending order
 
     def get_queryset(self):
-        return super().get_queryset().select_related('field', 'author')
+        return super().get_queryset().select_related('field')
+
+class FieldListBySportView(View):
+    template_name = 'field/field_list_by_sport.html'
+
+    def get(self, request, sport=None):
+        if sport:
+            fields = Field.objects.filter(sport__iexact=sport)
+        else:
+            fields = Field.objects.all()
+
+        context = {
+            'fields': fields,
+            'selected_sport': sport,  # To highlight the selected sport in the template
+        }
+
+        return render(request, self.template_name, context)
+
+
+
+

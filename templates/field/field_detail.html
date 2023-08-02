@@ -20,27 +20,25 @@
                 <span><strong>To:</strong> {{ field.get_end_working_day }} - {{ field.get_end_working_hour }}</span></p>
                 <p><strong>Price per hour: </strong>{{ field.price_per_hour }} $</p>
                   {% if user.is_authenticated %}
-                      {% if user.field_owner %}
-                          <button class="myf-btn"><a class="detail" href="{% url 'field_schedule' field.pk %}">Field schedule</a></button>
-                          <button class="myf-btn"><a class="detail" href="{% url 'add_news' field.pk %}">Add News</a></button>
-                      {% else %}
-                          <p><strong>Field Owner: </strong>{{ field.field_owner.company_name }}</p>
+                        {% if  user == field.field_owner %}
+                            <button class="myf-btn"><a class="detail" href="{% url 'field_schedule' field.pk %}">Field schedule</a></button>
+                            <button class="myf-btn"><a class="detail" href="{% url 'add_event' field.pk %}">Add Event</a></button>
+                        {% elif user.field_owner %}
+                        {% else %}
+                            <p><strong>Field Owner: </strong>{{ field.field_owner.company_name }}</p>
                             <button class="field-btn"><a href="{% url 'reservation_form' pk=field.pk %}" class="field-btn">Reserve this field</a></button>
                             {% if not has_reviewed %}
                                 <button id="leave-review-btn" class="field-btn">Leave Review</button>
                             {% else %}
                                 <p>You have already left a review for this field.</p>
                             {% endif %}
-                      {% endif %}
-
+                        {% endif %}
                   {% else %}
-                      <p>Please login to reserve.</p>
-                      <button class="field-btn"><a class="field-btn" href="{% url 'login' %}?next={{ request.path }}">Login here.</a></button>
-
+                        <button class="field-btn"><a class="field-btn" href="{% url 'login' %}?next={{ request.path }}">Please login to reserve</a></button>
                   {% endif %}
                     <p class="review-new">
                         <a href="{% url 'reviews' pk=field.pk %}">View Reviews for field</a> /
-                        <a href="{% url 'news_list' pk=field.pk %}">View News for field</a>
+                        <a href="{% url 'events_list' pk=field.pk %}">View Events for field</a>
                     </p>
 
                     <div id="review-form-wrapper" style="display: none;">

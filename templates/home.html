@@ -9,11 +9,12 @@
                 
                 <p>If you or your team want to play some of the following sports - You can save the date and time:</p>
                 <div class="balls">
-                    <span><a class="ball-link" href=""><img class="ball" src="../static/images/football-g362d384d8_1280.png" alt=""> Football</a></span>
-                    <span><a class="ball-link" href=""><img class="ball" src="../static/images/basketball-g8a8be924e_1280.png" alt=""> Basketball</a></span>
-                    <span><a class="ball-link" href=""><img class="ball" src="../static/images/volleyball-g55ef69036_1280.png" alt=""> Volleyball</a></span>
-                    <span><a class="ball-link" href=""><img class="ball" src="../static/images/tennis-gd134014e1_1280.png" alt=""> Tennis</a></span>
-                    
+                    <!-- Your home template -->
+                    <span><a class="ball-link" href="{% url 'field_list_by_sport' sport='football' %}"><img class="ball" src="../static/images/football-g362d384d8_1280.png" alt=""> Football</a></span>
+                    <span><a class="ball-link" href="{% url 'field_list_by_sport' sport='basketball' %}"><img class="ball" src="../static/images/basketball-g8a8be924e_1280.png" alt=""> Basketball</a></span>
+                    <span><a class="ball-link" href="{% url 'field_list_by_sport' sport='volleyball' %}"><img class="ball" src="../static/images/volleyball-g55ef69036_1280.png" alt=""> Volleyball</a></span>
+                    <span><a class="ball-link" href="{% url 'field_list_by_sport' sport='tennis' %}"><img class="ball" src="../static/images/tennis-gd134014e1_1280.png" alt=""> Tennis</a></span>
+
                 </div>
                 {% if user.is_authenticated %}
                     <p></p>

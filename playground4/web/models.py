@@ -103,22 +103,24 @@ class Review(models.Model):
 
 
 
-class News(models.Model):
+class Event(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
     date_published = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
     field = models.ForeignKey(Field, on_delete=models.CASCADE, blank=True, null=True)
     image = models.URLField(blank=True, null=True)
     category = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
+
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('news_detail', kwargs={'slug': self.slug})
+        return reverse('event_detail', kwargs={'slug': self.slug})
 
+    max_sign_ups = models.PositiveIntegerField(default=0)
     def __str__(self):
         return self.title
+

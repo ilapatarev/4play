@@ -1,7 +1,7 @@
 
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import User, Field, Reservation, Review, News
+from .models import User, Field, Reservation, Review, Event
 
 
 class RegistrationForm(UserCreationForm):
@@ -44,7 +44,8 @@ class ReviewForm(forms.ModelForm):
         model = Review
         fields = ['rating', 'comment']
 
-class NewsForm(forms.ModelForm):
+class EventForm(forms.ModelForm):
     class Meta:
-        model = News
+        model = Event
         fields = ['title', 'category', 'content', 'image']
+
