@@ -17,9 +17,9 @@
             <p class="profile-info">Age: {{ profile.age }}</p>
 
 
-            <!-- Add other field owner profile details here -->
+
         {% else %}
-            <!-- Client Profile Content -->
+
             <h2 class="profile-username">{{ profile.username }}</h2>
             {% if profile.image_url %}
                 <img class="profile-pic" src="{{ profile.image_url }}" alt="">
@@ -31,7 +31,7 @@
             <p class="profile-info"><strong>Age:</strong> {{ profile.age }}</p>
             <p class="profile-info"><strong>Preferred Sport:</strong> {{ profile.preferred_sport }}</p>
 
-            <!-- Add other client profile details here -->
+
         {% endif %}
         <!-- Link to edit profile -->
         <button class="profile-button"><a class="profile-a" href="{% url 'profile_edit' profile.pk %}">Edit Profile</a></button>

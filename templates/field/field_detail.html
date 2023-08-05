@@ -49,24 +49,11 @@
                         </form>
                     </div>
 
-                        <!-- Display existing reviews if any -->
-{#                    {% if field.review_set.exists %}#}
-{#                        <section>#}
-{#                            <h3>Reviews</h3>#}
-{#                            <ul>#}
-{#                                {% for review in field.review_set.all %}#}
-{#                                    <li>{{ review.user.username }} - {{ review.created_at|date:"F d, Y" }} - {{ review.comment }} - {{ review.rating }}</li>#}
-{#                                {% endfor %}#}
-{#                            </ul>#}
-{#                        </section>#}
-{##}
-{#                    {% else %}#}
-{#                        <p>No reviews yet.</p>#}
-{#                    {% endif %}#}
+
         </article>
     </main>
 
-        <!-- Add the following script at the bottom of your template -->
+
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 const leaveReviewBtn = document.getElementById("leave-review-btn");

@@ -4,7 +4,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponseRedirect
 from django.views import View
-from django.views.generic import DetailView
 from .forms import LoginForm, RegistrationForm, ReservationForm, ReviewForm, EventForm
 from .models import User, Field, Reservation, Review, Event
 from django.contrib.auth.decorators import login_required
@@ -27,7 +26,7 @@ def register(request):
     return render(request, 'registration/register.html', {'form': form})
 
 def login_success(request):
-    # Display a success message to the user
+
     return render(request, 'login_success.html')
 
 

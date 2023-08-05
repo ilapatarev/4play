@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.conf import settings
@@ -9,6 +9,13 @@ from django.utils.text import slugify
 
 
 class User(AbstractUser):
+    SPORT_CHOICES = [
+        ('Basketball', 'Basketball'),
+        ('Football', 'Football'),
+        ('Volleyball', 'Volleyball'),
+        ('Tennis', 'Tennis'),
+    ]
+
     username = models.CharField(max_length=150, unique=True, verbose_name='username')
     email = models.EmailField(unique=True, verbose_name='email')
     field_owner = models.BooleanField(default=False)
@@ -18,7 +25,8 @@ class User(AbstractUser):
     image_url=models.URLField(blank=True)
     company_name = models.CharField(max_length=100, blank=True)
     phone = models.CharField(max_length=15, blank=True)
-    preferred_sport = models.CharField(max_length=100, blank=True)
+    preferred_sport = models.CharField(max_length=100, choices=SPORT_CHOICES, blank=True)
+
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
@@ -37,11 +45,17 @@ class Field(models.Model):
         (6, 'Saturday'),
         (7, 'Sunday'),
     ]
+    SPORT_CHOICES = [
+        ('Basketball', 'Basketball'),
+        ('Football', 'Football'),
+        ('Volleyball', 'Volleyball'),
+        ('Tennis', 'Tennis'),
+    ]
 
     field_owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=200)
-    sport = models.CharField(max_length=100)
+    sport = models.CharField(max_length=100, choices=SPORT_CHOICES)
     description = models.TextField()
     image_url = models.URLField(blank=True)
     price_per_hour=models.PositiveIntegerField(blank=False, default=0)
@@ -104,12 +118,18 @@ class Review(models.Model):
 
 
 class Event(models.Model):
+    SPORT_CHOICES = [
+        ('Basketball', 'Basketball'),
+        ('Football', 'Football'),
+        ('Volleyball', 'Volleyball'),
+        ('Tennis', 'Tennis'),
+    ]
     title = models.CharField(max_length=200)
     content = models.TextField()
     date_published = models.DateTimeField(auto_now_add=True)
     field = models.ForeignKey(Field, on_delete=models.CASCADE, blank=True, null=True)
     image = models.URLField(blank=True, null=True)
-    category = models.CharField(max_length=100)
+    sport = models.CharField(max_length=100, choices=SPORT_CHOICES)
     slug = models.SlugField(unique=True)
 
 
