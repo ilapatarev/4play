@@ -2,6 +2,9 @@
 {% block content %}
     <main>
        <div class="first-page">
+       {% if user.is_authenticated %}
+           <p class="welcome">Welcome, <a id="welc" href="{% url 'profile' %}">{{ user.username }}</a></p>
+       {% endif %}
         <p>
             Playground is platform for searching and sharing sports fields in Plovdiv. </p>
             

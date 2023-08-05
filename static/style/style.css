@@ -114,5 +114,13 @@ hr {
     font-size: 52px;
     color: rgb(32, 44, 218);
 }
+.welcome {
+    text-align: right;
+    right: 50px;
 
+    font-size: 24px;
+}
+#welc {
+     text-decoration: underline;
+}
 
