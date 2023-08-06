@@ -12,7 +12,7 @@ class FieldAdmin(admin.ModelAdmin):
 
 class UserAdmin(admin.ModelAdmin):
     list_display = ('username', 'email', 'field_owner')
-    list_filter = ('age',)
+    list_filter = ('age', 'groups')
     ordering = ('username',)
     search_fields = ('name', 'location')
 
