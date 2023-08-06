@@ -47,5 +47,5 @@ class ReviewForm(forms.ModelForm):
 class EventForm(forms.ModelForm):
     class Meta:
         model = Event
-        fields = ['title', 'sport', 'content', 'image']
+        fields = ['title', 'sport', 'content', 'image', 'event_date']
 

@@ -5,6 +5,7 @@ from django.db import models
 from django.conf import settings
 from django.db.models import Avg
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.text import slugify
 
 
@@ -131,6 +132,7 @@ class Event(models.Model):
     image = models.URLField(blank=True, null=True)
     sport = models.CharField(max_length=100, choices=SPORT_CHOICES)
     entry_fee=models.PositiveIntegerField(blank=False, default=0)
+    event_date = models.DateTimeField(blank=False, default=timezone.now)
     slug = models.SlugField(unique=True)
 
 

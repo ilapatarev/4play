@@ -66,6 +66,8 @@ h3 {
 .com {
     background-color: lightgrey;
     border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .created {

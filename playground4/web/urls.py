@@ -3,7 +3,7 @@ from django.urls import path
 from playground4.web import views
 from playground4.web.views import FieldCreateView, FieldUpdateView, FieldDeleteView, ScheduleListView, \
 	FieldScheduleView, ReviewListView, FieldOwnerReviews, \
-	AddEventView, EventsListView, AllEventsListView, FieldDetailView
+	AddEventView, EventsListView, AllEventsListView, FieldDetailView, SignedUpEventsListView, cancel_sign_up
 
 urlpatterns=[
 	path('register/', views.register, name='register'),
@@ -34,8 +34,11 @@ urlpatterns=[
 	path('fields/<str:sport>/', views.FieldListBySportView.as_view(), name='field_list_by_sport'),
 	path('event/<int:pk>/', views.event_detail, name='event_detail'),
 	path('event/<int:pk>/registered-users/', views.registered_users_list, name='registered_users_list'),
-
+	path('my-signed-up-events/', SignedUpEventsListView.as_view(), name='my_signed_up_events'),
+	path('cancel-sign-up/<int:pk>/', cancel_sign_up, name='cancel_sign_up'),
 ]
+
+
 
 
 # Wert789456

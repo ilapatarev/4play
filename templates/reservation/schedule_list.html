@@ -10,20 +10,24 @@
                     {% endfor %}
                 </ul>
             {% endif %}
-              <h1>My Reservations</h1>
+              <h1>My Reservations</h1> <h3><a href="{% url 'my_signed_up_events' %}">My signup events</a></h3>
               {% if reservations %}
                 <ol>
                   {% for reservation in reservations %}
-                    <li class="res-li"> At {{ reservation.reservation_hour }}:00 {{ reservation.reservation_date }} - {{ reservation.field.name }} - {{ reservation.field.location }} - $ {{ reservation.field.price_per_hour }}
-                        {% if reservation.user == request.user %}
-                            <form method="post" action="{% url 'reservation_cancel' reservation.pk %}">
-                                {% csrf_token %}
-                                <button class="field-btn" type="submit">Cancel Reservation</button>
-                            </form>
-                        {% endif %}
+                    <li class="res-li">
+                        <p class="com">At {{ reservation.reservation_hour }}:00 {{ reservation.reservation_date }} <button class="field-btn" type="submit">Cancel Reservation</button></p>
+
+                            {% if reservation.user == request.user %}
+                                <form method="post" action="{% url 'reservation_cancel' reservation.pk %}">
+                                    {% csrf_token %}
+                                    <p class="created">{{ reservation.field.name }} - {{ reservation.field.location }}- $ {{ reservation.field.price_per_hour }}</p>
+                                </form>
+                            {% endif %}
+
+
 
                     </li>
-                      <hr>
+
                   {% endfor %}
                 </ol>
               {% else %}

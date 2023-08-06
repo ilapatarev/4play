@@ -1,8 +1,11 @@
+import datetime
+
 from django import forms
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponseRedirect
+from django.utils import timezone
 from django.views import View
 from .forms import LoginForm, RegistrationForm, ReservationForm, ReviewForm, EventForm
 from .models import User, Field, Reservation, Review, Event, UserEventRegistration
@@ -230,7 +233,6 @@ def reservation_confirmation(request, pk):
     return render(request, 'reservation/reservation_confirmation.html', {'reservation': reservation})
 
 
-
 class ScheduleListView(LoginRequiredMixin, ListView):
     model = Reservation
     template_name = 'reservation/schedule_list.html'
@@ -239,8 +241,6 @@ class ScheduleListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         # Only display reservations for the current user, ordered by reservation date and hour
         return Reservation.objects.filter(user=self.request.user).order_by('reservation_date', 'reservation_hour')
-
-    # views.py
 
 
 class FieldScheduleView(LoginRequiredMixin, ListView):
@@ -396,3 +396,15 @@ def registered_users_list(request, pk):
 
     return render(request, 'events/registered_users_list.html', {'event': event, 'registered_users': registered_users})
 
+class SignedUpEventsListView(LoginRequiredMixin, ListView):
+    template_name = 'reservation/my_signed_up_events.html'
+    context_object_name = 'signed_up_events'
+
+    def get_queryset(self):
+        return UserEventRegistration.objects.filter(user=self.request.user).select_related('event').order_by('event__event_date')
+
+@login_required
+def cancel_sign_up(request, pk):
+    event_registration = get_object_or_404(UserEventRegistration, user=request.user, event_id=pk)
+    event_registration.delete()
+    return redirect('my_signed_up_events')  # Redirect to the signed-up events page

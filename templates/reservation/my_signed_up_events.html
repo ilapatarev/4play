@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main class="main-reservation">
+        <article class="res-art">
+            <h1>My Signed-Up Events</h1> <h3><a href="{% url 'schedule' %}">My reservations</a></h3>
+            {% if signed_up_events %}
+                <ol>
+                    {% for event_registration in signed_up_events %}
+                        <li>
+                            <p class="com">{{ event_registration.event.title }} - fee ${{ event_registration.event.entry_fee }}<button class="field-btn"><a class="field-btn" href="{% url 'cancel_sign_up' pk=event_registration.event.pk %}">Cancel Sign-Up</a> </button> </p>
+                            <p class="created">{{ event_registration.event.event_date }} {{ event_registration.event.field }}</p>
+                        </li>
+                    {% endfor %}
+                </ol>
+            {% else %}
+                <p>No signed-up events found.</p>
+            {% endif %}
+        </article>
+    </main>
+{% endblock %}

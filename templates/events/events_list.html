@@ -10,12 +10,13 @@
                 {% for event in events_list %}
                     <li>
                         <h2>{{ event.title }}</h2>
+                        <h3>Event date: {{ event.event_date }}</h3>
                         <div class="news-container">
                             {% if event.image %}
                                 <img class="news-pic" src="{{ event.image }}" alt="Event Image">
                             {% endif %}
                             <p class="news-content">{{ event.content }}</p>
-                            <p class="news-pub">{{ event.date_published }}</p>
+                            <p class="news-pub">Published on: {{ event.date_published }}</p>
                             {% if user.is_authenticated %}
                                 <button class="field-btn">
                                     <a class="field-btn" href="{% url 'event_detail' event.pk %}">Event Detail</a>

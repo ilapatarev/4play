@@ -4,10 +4,12 @@
     <main class="main-fd">
         <article class="art">
               <h1>{{ event.title }}</h1>
+                <h3>Event date: {{ event.event_date }}</h3>
               <img id="event-pic" src="{{ event.image }}" alt="">
               <p id="event-content">{{ event.content }}</p>
-              <p id="event-content">Entry fee: {{ event.entry_fee }}</p>
+              <p id="event-content">Entry fee: ${{ event.entry_fee }}</p>
               <p id="event-sport">Sport: {{ event.get_sport_display }}</p>
+                <p class="news-pub">Published on: {{ event.date_published }}</p>
 
             {% if user.field_owner %}
                 {% if request.user == event.field.field_owner %}

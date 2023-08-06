@@ -90,6 +90,9 @@ a {
     border-radius: 8px;
     background-color: rgb(32, 44, 218);
 }
+.log-button:hover {
+    font-size: 20px;
+}
 .regis-title {
     font-weight: 600;
 
