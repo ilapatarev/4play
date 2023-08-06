@@ -32,6 +32,9 @@ urlpatterns=[
 	path('events_list/<int:pk>/', EventsListView.as_view(), name='events_list'),
 	path('all_events/', AllEventsListView.as_view(), name='all_events_list'),
 	path('fields/<str:sport>/', views.FieldListBySportView.as_view(), name='field_list_by_sport'),
+	path('event/<int:pk>/', views.event_detail, name='event_detail'),
+	path('event/<int:pk>/registered-users/', views.registered_users_list, name='registered_users_list'),
+
 ]
 
 

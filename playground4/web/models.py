@@ -130,6 +130,7 @@ class Event(models.Model):
     field = models.ForeignKey(Field, on_delete=models.CASCADE, blank=True, null=True)
     image = models.URLField(blank=True, null=True)
     sport = models.CharField(max_length=100, choices=SPORT_CHOICES)
+    entry_fee=models.PositiveIntegerField(blank=False, default=0)
     slug = models.SlugField(unique=True)
 
 
@@ -144,3 +145,10 @@ class Event(models.Model):
     def __str__(self):
         return self.title
 
+class UserEventRegistration(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    registration_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.event.title}"

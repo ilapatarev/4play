@@ -5,7 +5,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponseRedirect
 from django.views import View
 from .forms import LoginForm, RegistrationForm, ReservationForm, ReviewForm, EventForm
-from .models import User, Field, Reservation, Review, Event
+from .models import User, Field, Reservation, Review, Event, UserEventRegistration
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -369,6 +369,30 @@ class FieldListBySportView(View):
 
         return render(request, self.template_name, context)
 
+@login_required
+def event_detail(request, pk):
+    event = get_object_or_404(Event, pk=pk)
+    user = request.user
+
+    # Check if the user is already registered for the event
+    is_registered = UserEventRegistration.objects.filter(user=user, event=event).exists()
+
+    if request.method == 'POST':
+        if not is_registered:
+            registration = UserEventRegistration(user=user, event=event)
+            registration.save()
+            return redirect('event_detail', pk=pk)
+
+    return render(request, 'events/event_detail.html', {'event': event, 'is_registered': is_registered})
 
 
+@login_required
+def registered_users_list(request, pk):
+    event = get_object_or_404(Event, pk=pk)
+
+
+
+    registered_users = UserEventRegistration.objects.filter(event=event)
+
+    return render(request, 'events/registered_users_list.html', {'event': event, 'registered_users': registered_users})
 

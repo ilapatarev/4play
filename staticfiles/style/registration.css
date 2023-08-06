@@ -1,0 +1,106 @@
+
+.main-reg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.reg-form {
+    overflow: hidden;
+    width: 600px;
+    height: auto;
+    background-color: rgb(241, 241, 235);
+    border-radius: 8px;
+    padding: 5px;
+    margin: 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: column;
+    font-size: 16px;
+}
+.form-register {
+    width: 500px;
+
+
+}
+.form-register input {
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column; /* Arrange the elements vertically */
+    align-items: flex-end;
+
+}
+
+/*button {*/
+/*    border-radius: 8px;*/
+/*    background-color: rgb(32, 44, 218);*/
+/*    color: #ffffff;*/
+/*    */
+/*}*/
+#register {
+    font-size: 16px;
+    cursor: pointer;
+    color: white;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 8px;
+    background-color: rgb(32, 44, 218);
+
+
+}
+#register:hover {
+    font-size: 20px;
+}
+
+a {
+    text-decoration: none;
+    /*color: white;*/
+}
+.log-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.log {
+    overflow: hidden;
+    width: auto;
+    height: auto;
+    background-color: rgb(241, 241, 235);
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+
+    margin: 2px;
+    /*font-family: 'Open Sans', sans-serif;*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.log-button {
+    font-size: 16px;
+    cursor: pointer;
+    color: white;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 8px;
+    background-color: rgb(32, 44, 218);
+}
+.regis-title {
+    font-weight: 600;
+
+}
+.helptext {
+    color: #888; /* Set your desired color */
+    font-style: italic;
+    font-size: 12px;
+}
+.messages {
+    list-style-type: none;
+    padding-left: 0;
+}
+

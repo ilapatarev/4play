@@ -21,6 +21,15 @@
                                 <p>Location: {{ event.field.location }}</p>
                                 <p>Sport: {{ event.sport }}</p>
                                 <p class="news-pub">{{ event.date_published }}</p>
+                                {% if user.is_authenticated %}
+                                <button class="field-btn">
+                                    <a class="field-btn" href="{% url 'event_detail' event.pk %}">Event Detail</a>
+                                </button>
+                                {% else %}
+                                    <button class="field-btn">
+                                        <a class="field-btn" href="{% url 'login' %}?next={{ request.path }}">Please login to see the event</a>
+                                    </button>
+                                {% endif %}
 
                             </div>
                         </li>

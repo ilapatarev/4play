@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main class="main-fd">
+        <article class="art">
+              <h1>Registered Users for {{ event.title }}</h1>
+
+              <ol>
+                {% for user_registration in registered_users %}
+                  <li>
+                      <p class="com">{{ user_registration.user.username }}</p>
+                        <p class="created">{{ user_registration.registration_date }}</p>
+                  </li>
+
+                {% endfor %}
+              </ol>
+        </article>
+    </main>
+{% endblock %}

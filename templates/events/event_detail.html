@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main class="main-fd">
+        <article class="art">
+              <h1>{{ event.title }}</h1>
+              <img id="event-pic" src="{{ event.image }}" alt="">
+              <p id="event-content">{{ event.content }}</p>
+              <p id="event-content">Entry fee: {{ event.entry_fee }}</p>
+              <p id="event-sport">Sport: {{ event.get_sport_display }}</p>
+
+            {% if user.field_owner %}
+                {% if request.user == event.field.field_owner %}
+                    <a href="{% url 'registered_users_list' event.pk %}">View Registered Users</a>
+                {% endif %}
+            {% else %}
+                  {% if not is_registered %}
+                    <form method="post">
+                      {% csrf_token %}
+                      <button class="field-btn" type="submit">Sign Up</button>
+                    </form>
+                  {% else %}
+                    <p>You are already registered for this event.</p>
+                  {% endif %}
+            {% endif %}
+        </article>
+    </main>
+
+{% endblock %}
