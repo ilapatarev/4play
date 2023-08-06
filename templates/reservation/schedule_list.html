@@ -10,7 +10,7 @@
                     {% endfor %}
                 </ul>
             {% endif %}
-              <h1>My Reservations</h1> <h3><a href="{% url 'my_signed_up_events' %}">My signup events</a></h3>
+              <h1 class="all-events-tittle">My Reservations</h1> <h3 class="all-events-tittle"><a href="{% url 'my_signed_up_events' %}">My signup events</a></h3>
               {% if reservations %}
                 <ol>
                   {% for reservation in reservations %}

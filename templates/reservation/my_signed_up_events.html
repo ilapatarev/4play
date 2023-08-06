@@ -3,7 +3,7 @@
 {% block content %}
     <main class="main-reservation">
         <article class="res-art">
-            <h1>My Signed-Up Events</h1> <h3><a href="{% url 'schedule' %}">My reservations</a></h3>
+            <h1 class="all-events-tittle">My Signed-Up Events</h1> <h3 class="all-events-tittle"><a href="{% url 'schedule' %}">My reservations</a></h3>
             {% if signed_up_events %}
                 <ol>
                     {% for event_registration in signed_up_events %}

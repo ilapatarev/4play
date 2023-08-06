@@ -3,11 +3,14 @@
 
 <main class="main-reservation">
         <article class="res-art">
-        <h1>Field Schedule</h1>
-        <p>Reservations for {{ field.name }}:</p>
+        <h1 class="all-events-tittle">Field Schedule</h1>
+        <h3 class="all-events-tittle">Reservations for {{ field.name }}:</h3>
         <ol>
             {% for reservation in reservations %}
-                <li>{{ reservation.reservation_date }} at {{ reservation.reservation_hour }}:00 by {{ reservation.user.username }}</li>
+                <li>
+                    <p class="com">{{ reservation.reservation_date }} at {{ reservation.reservation_hour }}:00</p>
+                    <p class="created">Reserved by: {{ reservation.user.username }}</p>
+                </li>
             {% empty %}
                 <li>No reservations found for this field.</li>
             {% endfor %}

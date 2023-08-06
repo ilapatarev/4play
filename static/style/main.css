@@ -78,3 +78,10 @@ h3 {
     font-size: 25px;
     font-weight: bolder;
 }
+ul {
+    list-style-type: none;
+}
+
+.all-events-tittle {
+    text-align: center;
+}

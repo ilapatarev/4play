@@ -91,6 +91,8 @@ h3 {
 .news-container {
     width: 430px;
     border: 1px solid black;
+    padding-bottom: 16px;
+    margin-bottom: 50px;
 }
 .news-pub {
     font-size: 12px;
