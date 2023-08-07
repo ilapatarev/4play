@@ -35,7 +35,8 @@
 }
 
 .field-btn:hover {
-    font-size: 18px;
+    font-size: 20px;
+    cursor: pointer;
 }
 .text {
     display: -webkit-box;

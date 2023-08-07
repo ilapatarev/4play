@@ -15,15 +15,18 @@
                 <ol>
                   {% for reservation in reservations %}
                     <li class="res-li">
-                        <p class="com">At {{ reservation.reservation_hour }}:00 {{ reservation.reservation_date }} <button class="field-btn" type="submit">Cancel Reservation</button></p>
+                        <p class="com">
+                           {{ reservation.reservation_hour }}:00 {{ reservation.reservation_date }} at {{ reservation.field.name }}
+
+
+                        </p>
 
                             {% if reservation.user == request.user %}
-                                <form method="post" action="{% url 'reservation_cancel' reservation.pk %}">
+                                <form class="created" method="post" action="{% url 'reservation_cancel' reservation.pk %}">
                                     {% csrf_token %}
-                                    <p class="created">{{ reservation.field.name }} - {{ reservation.field.location }}- $ {{ reservation.field.price_per_hour }}</p>
+                                    <button class="field-btn" type="submit">Cancel Reservation </button>
                                 </form>
                             {% endif %}
-
 
 
                     </li>

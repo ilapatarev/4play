@@ -34,7 +34,7 @@
                             {% endif %}
                         {% endif %}
                   {% else %}
-                        <button class="field-btn"><a class="field-btn" href="{% url 'login' %}?next={{ request.path }}">Please login to reserve</a></button>
+                        <button class="field-btn"><a class="field-btn" href="{% url 'login' %}">Please login to reserve</a></button>
                   {% endif %}
                     <p class="review-new">
                         <a href="{% url 'reviews' pk=field.pk %}">View Reviews for field</a> /

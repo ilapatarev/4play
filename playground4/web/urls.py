@@ -3,7 +3,8 @@ from django.urls import path
 from playground4.web import views
 from playground4.web.views import FieldCreateView, FieldUpdateView, FieldDeleteView, ScheduleListView, \
 	FieldScheduleView, ReviewListView, FieldOwnerReviews, \
-	AddEventView, EventsListView, AllEventsListView, FieldDetailView, SignedUpEventsListView, cancel_sign_up
+	AddEventView, EventsListView, AllEventsListView, FieldDetailView, SignedUpEventsListView, cancel_sign_up, \
+	change_password
 
 urlpatterns=[
 	path('register/', views.register, name='register'),
@@ -36,9 +37,11 @@ urlpatterns=[
 	path('event/<int:pk>/registered-users/', views.registered_users_list, name='registered_users_list'),
 	path('my-signed-up-events/', SignedUpEventsListView.as_view(), name='my_signed_up_events'),
 	path('cancel-sign-up/<int:pk>/', cancel_sign_up, name='cancel_sign_up'),
+	path('change-password/', change_password, name='change_password'),
 ]
 
 
 
 
 # Wert789456
+# Asdf4561
