@@ -1,4 +1,5 @@
 from django.urls import path
+from django.views.defaults import page_not_found
 
 from playground4.web import views
 from playground4.web.views import FieldCreateView, FieldUpdateView, FieldDeleteView, ScheduleListView, \
