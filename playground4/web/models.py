@@ -1,13 +1,9 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractUser, Group, Permission
-from django.core.mail import send_mail
-from django.core.validators import MinValueValidator, MaxValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator, MinLengthValidator
 from django.db import models
 from django.conf import settings
 from django.db.models import Avg
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.text import slugify
@@ -21,7 +17,7 @@ class User(AbstractUser):
         ('Tennis', 'Tennis'),
     ]
 
-    username = models.CharField(max_length=150, unique=True, verbose_name='username')
+    username = models.CharField(validators=[MinLengthValidator(3)], max_length=150, unique=True, verbose_name='username')
     email = models.EmailField(unique=True, verbose_name='email')
     field_owner = models.BooleanField(default=False)
     first_name = models.CharField(max_length=50, blank=True)
