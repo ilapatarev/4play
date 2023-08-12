@@ -19,5 +19,5 @@ Thats briefly, i hope i did not miss anything.
 Tests - I have some tests.
 
 # Deployment - ilapatarev.pythonanywhere.com 
-I made many attempts - finaly i manage to deploy it on pythonanywhere. Unfortunatelly database do not work because my project work with postgres. 
-For pythonanywhere.com db is mysql and I did no manage to repair it for this db on time. But the other things work.  
+I made many attempts - finaly i manage to deploy it on pythonanywhere. 
+For pythonanywhere.com db is mysql, so i change it in order to work.
