@@ -16,6 +16,6 @@ You can cancel your reservations. You can see events, you can sign up for them, 
 Admin site has different groups and views.
 Thats briefly, i hope i did not miss anything.
 
-# Deployment - https://ilapatarev.pythonanywhere.com/)https://ilapatarev.pythonanywhere.com/
+# Deployment - https://ilapatarev.pythonanywhere.com/
 
 For pythonanywhere.com db is mysql.
